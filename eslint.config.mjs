@@ -23,6 +23,7 @@ export default defineConfig([
       indent: ['error', 2],
       'quotes': ['error', 'single'],
       'linebreak-style':['error', 'unix'],
+      'react/prop-types': 'off',
     },
   },
 ]);
