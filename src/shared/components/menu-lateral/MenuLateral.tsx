@@ -1,5 +1,5 @@
-import { Avatar, Divider, Drawer, List, useTheme, Icon, ListItemButton, ListItemIcon, ListItemText  } from '@mui/material';
-import { Box, useMediaQuery } from '@mui/system';
+import { Box, Avatar, Divider, Drawer, List, useTheme, Icon, ListItemButton, ListItemIcon, ListItemText  } from '@mui/material';
+import { useMediaQuery } from '@mui/system';
 
 import { useAppThemeContext, useDrawerContext } from '../../contexts';
 import React from 'react';
