@@ -1,9 +1,9 @@
+import React from 'react';
 import { Box, Avatar, Divider, Drawer, List, useTheme, Icon, ListItemButton, ListItemIcon, ListItemText  } from '@mui/material';
 import { useMediaQuery } from '@mui/system';
 
 import { useAppThemeContext, useDrawerContext } from '../../contexts';
-import React from 'react';
-import { ListItemLink } from './list-item-link';
+import { ListItemLink } from './components';
 
 
 interface IMenuLateralProps {
