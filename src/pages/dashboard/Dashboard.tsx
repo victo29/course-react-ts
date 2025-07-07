@@ -1,4 +1,4 @@
-import { ListingTools } from '../../shared/components';
+import { DetailTools } from '../../shared/components';
 import { LayoutBase } from '../../shared/layouts';
 
 
@@ -8,9 +8,7 @@ export const Dashboard = () => {
     <LayoutBase
       title='Página Inicial'
       toolsBarrs={(
-        <ListingTools
-          showSearchInput
-        />
+        <DetailTools/>
       )}>
       Testando
     </LayoutBase>
