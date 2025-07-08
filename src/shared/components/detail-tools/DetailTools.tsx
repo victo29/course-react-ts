@@ -1,5 +1,6 @@
-import { Box, Button, Divider, Icon, Paper, Skeleton, useTheme } from '@mui/material';
+import { Box, Divider, Paper, Skeleton, Theme, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
+import { ActionButton, MenuOptions } from './components';
 
 interface IDetailToolsProps{
   buttonText?: string;
@@ -15,6 +16,8 @@ interface IDetailToolsProps{
   showButtonDeleteLoading?: boolean;
   showButtonSaveLoading?: boolean;
   showButtonSaveBackLoading?: boolean;
+  showMenuOptionsLoading?: boolean,
+
 
   onClickNew?: () => void;
   onClickBack?: () => void;
@@ -38,6 +41,7 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
   showButtonDeleteLoading = false,
   showButtonSaveLoading = false,
   showButtonSaveBackLoading = false,
+  showMenuOptionsLoading = false,
 
   onClickNew,
   onClickBack,
@@ -47,6 +51,8 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
 
 }) =>{
 
+  const smDown =useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+  const mdDown =useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
   const theme = useTheme();
 
   return(
@@ -59,81 +65,70 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
       alignItems='center'
       gap={1}
     >
-      { (showButtonSave && !showButtonSaveLoading) && (
-        <Button
-          color='primary'
-          disableElevation
-          variant='contained'
-          startIcon={<Icon>save</Icon>}
-          onClick={onClickSave}
-        >
-          Salvar
-        </Button>)
-      }
+      {!smDown ? (
+        <>
+          <ActionButton
+            show={showButtonSave}
+            loading={showButtonSaveLoading}
+            text="Salvar"
+            icon="save"
+            variant="contained"
+            onClick={onClickSave}
+          />
 
-      {showButtonSaveLoading &&(<Skeleton width={110} height={60}/>)}
+          <ActionButton
+            show={showButtonSaveBack}
+            loading={showButtonSaveBackLoading}
+            text="Salvar e voltar"
+            icon="save"
+            onClick={onClickSaveBack}
+            hideOn={mdDown}
+          />
 
-      { (showButtonSaveBack && !showButtonSaveBackLoading) && (
-        <Button
-          color='primary'
-          disableElevation
-          variant='outlined'
-          startIcon={<Icon>save</Icon>}
-          onClick={onClickSaveBack}
-        >
-          Salvar e voltar
-        </Button>)
-      }
+          <ActionButton
+            show={showButtonDelete}
+            loading={showButtonDeleteLoading}
+            text="Apagar"
+            icon="delete"
+            onClick={onClickDelete}
+          />
 
-      {showButtonSaveBackLoading &&(<Skeleton width={180} height={60}/>)}
+          <ActionButton
+            show={showButtonNew}
+            loading={showButtonNewLoading}
+            text={buttonText}
+            icon="add"
+            onClick={onClickNew}
+            widthSkeleton={180}
+          />
 
+          {
+            (showButtonBack &&
+              (showButtonNew || showButtonDelete || showButtonSave || showButtonSaveBack)
+            ) && (
 
-      {(showButtonDelete && !showButtonDeleteLoading) && (
-        <Button
-          color='primary'
-          disableElevation
-          variant='outlined'
-          startIcon={<Icon>delete</Icon>}
-          onClick={onClickDelete}
-        >
-          Apagar
-        </Button>)
-      }
+              <Divider orientation="vertical" variant='middle' />
+            )
+          }
 
-      {showButtonDeleteLoading &&(<Skeleton width={110} height={60}/>)}
-
-
-      {(showButtonNew && !showButtonNewLoading ) && (
-        <Button
-          color='primary'
-          disableElevation
-          variant='outlined'
-          startIcon={<Icon>add</Icon>}
-          onClick={onClickNew}
-        >
-          {buttonText}
-        </Button>)
-      }
-
-      {showButtonNewLoading &&(<Skeleton width={110} height={60}/>)}
-
-
-      <Divider variant='middle' orientation='vertical'/>
-
-      {(showButtonBack && !showButtonBackLoading) && (
-        <Button
-          color='primary'
-          disableElevation
-          variant='outlined'
-          startIcon={<Icon>arrow_back</Icon>}
-          onClick={onClickBack}
-        >
-          Voltar
-        </Button>)
-      }
-
-      {showButtonBackLoading &&(<Skeleton width={110} height={60}/>)}
-
+          <ActionButton
+            show={showButtonBack}
+            loading={showButtonBackLoading}
+            text="Voltar"
+            icon="arrow_back"
+            onClick={onClickBack}
+          />
+        </>
+      ) : (
+        <>
+          <MenuOptions
+            onClickSave={() =>{console.log('Salvando.......');}}
+            onClickDelete={() =>{console.log('Deletando.......');}}
+            onClickBack={() =>{console.log('Voltando.......');}}
+          />
+          {showMenuOptionsLoading && <Skeleton width={110} height={60} />}
+        </>
+      )}
     </Box>
   );
 };

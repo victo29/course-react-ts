@@ -12,7 +12,7 @@ interface ILayoutBaseProps {
 export const LayoutBase: React.FC<ILayoutBaseProps> = ({children, title, toolsBarrs}) =>{
 
   const smDown =useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
-  const mdDown =useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+  const mdDown =useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
   const theme =useTheme();
 
   const {toggleDrawerOpen} = useDrawerContext();
